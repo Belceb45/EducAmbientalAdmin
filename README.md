@@ -1,8 +1,15 @@
 # EducAmbiental · Panel de Administración
 
 Panel web (React + Vite) para operar las funciones administrativas de EducAmbiental
-que **no** están en la app móvil del ciudadano. Consume la misma API REST de Spring Boot
+que **no** están en la app móvil del ciudadano (**RF23**). Consume la misma API REST de Spring Boot
 y reutiliza los colores, logo y estilo de la app móvil.
+
+## Stack Tecnológico
+
+- **React 19** + **Vite** (build y dev server).
+- **react-router-dom 7** para el enrutamiento por secciones.
+- **fetch** nativo con token JWT (sin axios ni librerías de UI externas).
+- **ESLint** para calidad de código.
 
 ## Roles y secciones
 
@@ -13,6 +20,9 @@ Las secciones visibles dependen del rol devuelto por el backend:
 |-----|-----------|----|
 | **ADMIN_SYSTEM** | Dashboard · Tickets · Usuarios · Centros | RF19, RF12, RF4, RF10/11 |
 | **ADMIN_CONTENT** | Contenido · Módulos · Materiales · Categorías · Recompensas | RF13, RF14, RF6, RF16 |
+
+> La lista completa de requerimientos vive en `EducAmibental-Backend/REQUIREMENTS.md`
+> (espejo en `Educ_Ambiental/docs/SDD_Requirements.md`).
 
 Cada sección tiene CRUD completo (crear/editar/eliminar) contra los endpoints reales.
 El backend además valida cada acción vía `@PreAuthorize`, así que la UI y el servidor

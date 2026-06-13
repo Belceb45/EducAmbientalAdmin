@@ -34,7 +34,17 @@ export function AuthProvider({ children }) {
   }, [logout]);
 
   const login = useCallback(async (email, password) => {
-    const res = await authApi.login(email, password);
+    let res;
+    try {
+      res = await authApi.login(email, password);
+    } catch (err) {
+      // El cliente HTTP convierte cualquier 401 en "Tu sesión expiró", pero durante
+      // el login ese mensaje es incorrecto: significa credenciales rechazadas.
+      if (err.status === 401) {
+        throw new ApiError('Credenciales incorrectas o cuenta deshabilitada.', 401);
+      }
+      throw err;
+    }
     if (!isAdmin(res.rol)) {
       throw new ApiError('Esta cuenta no tiene permisos de administrador.', 403);
     }
